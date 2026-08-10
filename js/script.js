@@ -1,260 +1,326 @@
-"use strict";
+document.addEventListener("DOMContentLoaded", () => {
 
+    /* =========================================
+       MOBILE NAVIGATION
+    ========================================= */
 
-/*
-    Mobile Navigation
-*/
+    const menuToggle = document.getElementById("menu-toggle");
+    const navigation = document.getElementById("main-navigation");
 
-const menuToggle =
-    document.querySelector("#menu-toggle");
+    if (menuToggle && navigation) {
 
-const mainNavigation =
-    document.querySelector("#main-navigation");
+        const navLinks = navigation.querySelectorAll("a");
 
+        // Open / close mobile menu
+        menuToggle.addEventListener("click", () => {
 
-if (menuToggle && mainNavigation) {
-
-
-    menuToggle.addEventListener(
-        "click",
-        function () {
-
-
-            const isExpanded =
-                menuToggle.getAttribute(
-                    "aria-expanded"
-                ) === "true";
-
-
-            /*
-                Update ARIA state
-            */
+            const isOpen =
+                navigation.classList.toggle("active");
 
             menuToggle.setAttribute(
                 "aria-expanded",
-                String(!isExpanded)
+                String(isOpen)
             );
-
-
-            /*
-                Update accessible name
-            */
 
             menuToggle.setAttribute(
                 "aria-label",
-                isExpanded
-                    ? "Open navigation menu"
-                    : "Close navigation menu"
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
             );
-
-
-            /*
-                Open / close menu
-            */
-
-            mainNavigation.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-
-    /*
-        Close mobile menu after
-        selecting a navigation link.
-    */
-
-    const navigationLinks =
-        mainNavigation.querySelectorAll("a");
-
-
-    navigationLinks.forEach(
-        function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    mainNavigation.classList.remove(
-                        "open"
-                    );
-
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-
-                    menuToggle.setAttribute(
-                        "aria-label",
-                        "Open navigation menu"
-                    );
-
-                }
-            );
-
-        }
-    );
-
-}
-/* =====================================================
-   CONTACT FORM VALIDATION
-===================================================== */
-
-const contactForm = document.getElementById("contact-form");
-
-if (contactForm) {
-
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const subjectInput = document.getElementById("subject");
-    const messageInput = document.getElementById("message");
-
-    const nameError = document.getElementById("name-error");
-    const emailError = document.getElementById("email-error");
-    const subjectError = document.getElementById("subject-error");
-    const messageError = document.getElementById("message-error");
-
-    const formStatus = document.getElementById("form-status");
-
-
-    function clearErrors() {
-
-        const inputs = [
-            nameInput,
-            emailInput,
-            subjectInput,
-            messageInput
-        ];
-
-        const errors = [
-            nameError,
-            emailError,
-            subjectError,
-            messageError
-        ];
-
-
-        inputs.forEach(function(input) {
-
-            input.classList.remove("invalid");
 
         });
 
 
-        errors.forEach(function(error) {
+        // Close menu when a navigation link is clicked
+        navLinks.forEach((link) => {
 
-            error.textContent = "";
+            link.addEventListener("click", () => {
+
+                navigation.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            });
 
         });
 
 
-        formStatus.textContent = "";
+        // Close menu when clicking outside navigation
+        document.addEventListener("click", (event) => {
 
-        formStatus.className = "form-status";
+            const clickedInsideNavigation =
+                navigation.contains(event.target);
+
+            const clickedMenuButton =
+                menuToggle.contains(event.target);
+
+            if (
+                !clickedInsideNavigation &&
+                !clickedMenuButton &&
+                navigation.classList.contains("active")
+            ) {
+
+                navigation.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            }
+
+        });
+
+
+        // Close menu when pressing Escape
+        document.addEventListener("keydown", (event) => {
+
+            if (
+                event.key === "Escape" &&
+                navigation.classList.contains("active")
+            ) {
+
+                navigation.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+                menuToggle.focus();
+
+            }
+
+        });
+
+
+        // Close menu automatically if screen becomes desktop size
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 768) {
+
+                navigation.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            }
+
+        });
 
     }
 
 
-    function validateEmail(email) {
+    /* =========================================
+       SMOOTH SCROLL
+    ========================================= */
 
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const internalLinks =
+        document.querySelectorAll('a[href^="#"]');
 
-    }
+    internalLinks.forEach((link) => {
 
+        link.addEventListener("click", (event) => {
 
-    contactForm.addEventListener("submit", function(event) {
+            const targetId =
+                link.getAttribute("href");
 
-        event.preventDefault();
+            if (
+                !targetId ||
+                targetId === "#"
+            ) {
+                return;
+            }
 
-        clearErrors();
+            const target =
+                document.querySelector(targetId);
 
-        let valid = true;
+            if (target) {
 
+                event.preventDefault();
 
-        /* Name */
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
-        if (nameInput.value.trim().length < 2) {
+            }
 
-            nameInput.classList.add("invalid");
-
-            nameError.textContent =
-                "Please enter your name.";
-
-            valid = false;
-
-        }
-
-
-        /* Email */
-
-        if (!validateEmail(emailInput.value.trim())) {
-
-            emailInput.classList.add("invalid");
-
-            emailError.textContent =
-                "Please enter a valid email address.";
-
-            valid = false;
-
-        }
-
-
-        /* Subject */
-
-        if (subjectInput.value.trim().length < 3) {
-
-            subjectInput.classList.add("invalid");
-
-            subjectError.textContent =
-                "Please enter a subject.";
-
-            valid = false;
-
-        }
-
-
-        /* Message */
-
-        if (messageInput.value.trim().length < 10) {
-
-            messageInput.classList.add("invalid");
-
-            messageError.textContent =
-                "Message should contain at least 10 characters.";
-
-            valid = false;
-
-        }
-
-
-        if (!valid) {
-
-            formStatus.textContent =
-                "Please correct the highlighted fields.";
-
-            formStatus.classList.add("error");
-
-            return;
-
-        }
-
-
-        /*
-         * This is frontend validation only.
-         * The form will be connected to a real
-         * email service during the final setup.
-         */
-
-        formStatus.textContent =
-            "Your message is ready to be sent.";
-
-        formStatus.classList.add("success");
-
-        contactForm.reset();
+        });
 
     });
 
-}
+
+    /* =========================================
+       CURRENT YEAR
+    ========================================= */
+
+    const yearElements =
+        document.querySelectorAll("[data-year]");
+
+    yearElements.forEach((element) => {
+
+        element.textContent =
+            new Date().getFullYear();
+
+    });
+
+
+    /* =========================================
+       CONTACT FORM
+    ========================================= */
+
+    const contactForm =
+        document.querySelector("#contact-form");
+
+    if (contactForm) {
+
+        contactForm.addEventListener("submit", (event) => {
+
+            const name =
+                contactForm.querySelector("#name");
+
+            const email =
+                contactForm.querySelector("#email");
+
+            const message =
+                contactForm.querySelector("#message");
+
+
+            let isValid = true;
+
+
+            // Name validation
+            if (name && name.value.trim() === "") {
+
+                name.setCustomValidity(
+                    "Please enter your name."
+                );
+
+                isValid = false;
+
+            } else if (name) {
+
+                name.setCustomValidity("");
+
+            }
+
+
+            // Email validation
+            if (email && email.value.trim() === "") {
+
+                email.setCustomValidity(
+                    "Please enter your email address."
+                );
+
+                isValid = false;
+
+            } else if (email) {
+
+                email.setCustomValidity("");
+
+            }
+
+
+            // Message validation
+            if (message && message.value.trim() === "") {
+
+                message.setCustomValidity(
+                    "Please enter your message."
+                );
+
+                isValid = false;
+
+            } else if (message) {
+
+                message.setCustomValidity("");
+
+            }
+
+
+            if (!isValid) {
+
+                event.preventDefault();
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================
+       FADE-IN ANIMATION
+    ========================================= */
+
+    const animatedElements =
+        document.querySelectorAll(
+            ".skill-card, .project-card, .core-skill"
+        );
+
+    if (
+        "IntersectionObserver" in window &&
+        animatedElements.length > 0
+    ) {
+
+        const observer =
+            new IntersectionObserver(
+                (entries, observer) => {
+
+                    entries.forEach((entry) => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "is-visible"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.1
+                }
+            );
+
+        animatedElements.forEach((element) => {
+
+            observer.observe(element);
+
+        });
+
+    }
+
+});
