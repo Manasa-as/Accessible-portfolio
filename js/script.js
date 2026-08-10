@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Close menu when screen becomes desktop
         window.addEventListener("resize", () => {
 
-            if (window.innerWidth > 768) {
+            if (window.innerWidth > 850) {
                 closeMenu();
             }
 
