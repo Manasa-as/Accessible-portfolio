@@ -4,23 +4,23 @@
 
 :root {
 
-    --primary: #173b68;
+    --primary: #0f766E;
 
-    --primary-dark: #102c4f;
+    --primary-dark: #115e59;
 
-    --accent: #1557a6;
+    --accent: #10b981;
 
-    --accent-light: #eaf3ff;
+    --accent-light: #d1fae5;
 
     --text: #172033;
 
-    --text-light: #5d6879;
+    --text-light: #64748b;
 
     --background: #ffffff;
 
-    --background-soft: #f5f8fc;
+    --background-soft: #f0fdfa;
 
-    --border: #dfe6ef;
+    --border: #d1d5db;
 
     --white: #ffffff;
 
@@ -818,8 +818,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            var(--primary),
-            #24558e
+            var(--primary-dark),
+            var(--primary)
         );
 
     color: var(--white);
@@ -842,7 +842,7 @@ select:focus-visible {
 
 .cta-container .section-label {
 
-    color: #b9d9ff;
+    color: var(--accent-light);
 
 }
 
@@ -865,7 +865,7 @@ select:focus-visible {
 
 .cta-container p:last-child {
 
-    color: #d9e8f8;
+    color: #d1fae5;
 
 }
 
@@ -1237,8 +1237,7 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #f5f8fc,
-            #eaf3ff
+            var(--background-soft)
         );
 
     border-bottom:
@@ -2342,8 +2341,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #173b68,
-            #2f80ed
+            #0f766e,
+            #10b981
         );
 
 }
@@ -2354,9 +2353,9 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #102c4f,
-            #4a78a8
-        );
+            #115e59,
+            #0f766e
+        )
 
 }
 
@@ -2366,8 +2365,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #214d75,
-            #3d91c9
+            #047857,
+            #10b981
         );
 
 }
@@ -2378,8 +2377,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #173b68,
-            #557da8
+            #0f766e,
+            #34d399
         );
 
 }
