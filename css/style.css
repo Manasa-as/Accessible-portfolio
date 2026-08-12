@@ -4,23 +4,23 @@
 
 :root {
 
-    --primary: #0f766E;
+    --primary: #1d4ed8;
 
-    --primary-dark: #115e59;
+    --primary-dark: #1e3a8a;
 
-    --accent: #10b981;
+    --accent: #2563eb;
 
-    --accent-light: #d1fae5;
+    --accent-light: #dbeafe;
 
-    --text: #172033;
+    --text: #111827;
 
-    --text-light: #64748b;
+    --text-light: #4b5563;
 
     --background: #ffffff;
 
-    --background-soft: #f0fdfa;
+    --background-soft: #f8fafc;
 
-    --border: #d1d5db;
+    --border: #cbd5e1;
 
     --white: #ffffff;
 
@@ -818,8 +818,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            var(--primary-dark),
-            var(--primary)
+            #1e3a8a,
+            #1d4ed8
         );
 
     color: var(--white);
@@ -2341,8 +2341,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #0f766e,
-            #10b981
+            #1e3a8a,
+            #1d4ed8
         );
 
 }
@@ -2353,8 +2353,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #115e59,
-            #0f766e
+            #1e3a8a,
+            #1d4ed8
         )
 
 }
@@ -2365,8 +2365,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #047857,
-            #10b981
+            #1e3a8a,
+            #1d4ed8
         );
 
 }
@@ -2377,8 +2377,8 @@ select:focus-visible {
     background:
         linear-gradient(
             135deg,
-            #0f766e,
-            #34d399
+            #1e3a8a,
+            #1d4ed8
         );
 
 }
@@ -2794,10 +2794,10 @@ select:focus-visible {
     padding: 10px;
 
     background:
-        var(--accent-light);
+        #dbeafe;
 
     color:
-        var(--accent);
+        #1e3a8a;
 
     border:
         1px solid var(--border);
